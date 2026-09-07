@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vehicle Count — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">&#9670;</span>VEHICLE<span class="thin">COUNT</span></div>
+    <div class="topbar-meta">
+      <span id="clock" class="mono"></span>
+      <span class="status-dot" id="api-status" title="API connection"></span>
+    </div>
+  </header>
+
+  <section class="tally" aria-label="Today's counts">
+    <div class="tally-header">
+      <h1>Today's count</h1>
+      <span class="tally-date mono" id="today-date">&mdash;</span>
+    </div>
+    <div class="tally-board" id="tally-board">
+      <div class="tally-card tally-total">
+        <div class="tally-number mono" id="total-count">0000</div>
+        <div class="tally-label">total vehicles</div>
+      </div>
+    </div>
+    <p class="empty-note" id="tally-empty" hidden>No vehicles counted yet today &mdash; upload a video or start a camera below to begin.</p>
+  </section>
+
+  <div class="lane-divider" role="presentation"></div>
+
+  <section class="preview" aria-label="Live annotated preview">
+    <div class="preview-header">
+      <h2>Live preview</h2>
+      <span class="preview-source mono" id="preview-source-label">No active source</span>
+    </div>
+    <div class="preview-frame" id="preview-frame">
+      <img id="preview-img" alt="Live annotated video preview" hidden />
+      <p class="empty-note" id="preview-empty">Upload a video or start a camera below &mdash; it'll play here with detected vehicles boxed and labeled as it processes.</p>
+    </div>
+  </section>
+
+  <div class="lane-divider" role="presentation"></div>
+
+  <div class="columns">
+
+    <section class="panel" aria-label="Add a video or camera">
+      <h2>Add a video or camera</h2>
+
+      <div class="subpanel">
+        <h3>Upload video</h3>
+        <form id="upload-form">
+          <input type="file" id="video-file" accept="video/*" required />
+          <button type="submit">Upload video</button>
+        </form>
+        <ul class="item-list" id="job-list"></ul>
+      </div>
+
+      <div class="subpanel">
+        <h3>Watch a live camera</h3>
+        <form id="stream-form">
+          <input type="text" id="stream-name" placeholder="Camera name" required />
+          <input type="text" id="stream-url" placeholder="rtsp:// or http:// stream URL" required />
+          <button type="submit">Start watching</button>
+        </form>
+        <ul class="item-list" id="stream-list"></ul>
+      </div>
+    </section>
+
+    <section class="panel" aria-label="History">
+      <h2>History</h2>
+      <div class="history-controls">
+        <input type="date" id="history-date" />
+        <button id="history-clear" type="button" class="ghost-btn">All dates</button>
+      </div>
+      <table class="history-table" id="history-table">
+        <thead><tr><th>Date</th><th>Vehicle type</th><th>Count</th></tr></thead>
+        <tbody id="history-body"></tbody>
+      </table>
+      <p class="empty-note" id="history-empty" hidden>No history yet.</p>
+    </section>
+
+  </div>
+
+  <div class="lane-divider" role="presentation"></div>
+
+  <section class="manifest" aria-label="Known vehicle types">
+    <h2>Known vehicle types</h2>
+    <div class="manifest-strip" id="manifest-strip"></div>
+    <p class="empty-note" id="manifest-empty" hidden>No vehicle types recorded yet.</p>
+  </section>
+
+</div>
+<script src="/app.js"></script>
+</body>
+</html>
